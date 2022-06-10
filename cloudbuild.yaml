@@ -34,7 +34,7 @@ availableSecrets:
     secretManager:
     - versionName: projects/150435548913/secrets/DOCKER_PASSWORD_SECRET_NAME/versions/1
       env: 'PASSWORD'
-    - versionName: projects/150435548913/secrets/DOCKER_USERNAME_SECRET_NAME/versions/1
+    - versionName: projects/150435548913/secrets/DOCKER_USERNAME_SECRET_NAME/versions/2
       env: 'USERNAME'
     - versionName: projects/150435548913/secrets/ENV_REPO_AUTH_URL/versions/1
       env: 'ENV_REPO_URL'
