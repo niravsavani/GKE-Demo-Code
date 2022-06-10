@@ -20,6 +20,8 @@ steps:
    secretEnv: ['ENV_REPO_URL']
    env:
     - 'ENV_REPO_FILES=$_ENV_REPO_FILES'
+    - 'GIT_USER_EMAIL="savani.nirav706@gmail.com"'
+    - 'GIT_USER_NAME="niravsavani"'
     - 'ENV_REPO_MERGE_BRANCH=$_ENV_REPO_MERGE_BRANCH'
     - 'ENV_REPO_TARGET_BRANCH=$_ENV_REPO_TARGET_BRANCH'
     - 'REPO_NAME=$REPO_NAME'
