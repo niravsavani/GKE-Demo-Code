@@ -16,6 +16,12 @@ steps:
     - 'REPO_NAME=$REPO_NAME'
     - 'BRANCH_NAME=$BRANCH_NAME'
 
+substitutions:
+    #GCP Specific configuration. Please DON'T change anything
+    _PROJECT: argocd-352710
+    _ZONE: us-central1-a
+    _CONTAINERNAME: hello-world-service 
+
 availableSecrets:
     secretManager:
     - versionName: projects/150435548913/secrets/ENV_REPO_AUTH_URL/versions/1
