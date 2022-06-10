@@ -2,11 +2,11 @@ steps:
 
  - name: 'gcr.io/cloud-builders/docker'
    entrypoint: 'bash'
-   args: ['build', 'gcr.io/${_PROJECT}/${_CONTAINERNAME}:$SHORT_SHA','.']
+   args: ['build', 'gcr.io/${_PROJECT}:$SHORT_SHA','.']
 
  - name: 'gcr.io/cloud-builders/docker'
    entrypoint: 'bash'
-   args: ['push','gcr.io/${_PROJECT}/${_CONTAINERNAME}:$SHORT_SHA']
+   args: ['push','gcr.io/${_PROJECT}:$SHORT_SHA']
 
  - name: 'omegaes/kubci'
    args: ['$SHORT_SHA']
@@ -21,8 +21,7 @@ steps:
 substitutions:
     #GCP Specific configuration. Please DON'T change anything
     _PROJECT: argocd-352710
-    _ZONE: us-central1-a
-    _CONTAINERNAME: hello-world-service 
+    _ZONE: us-central1-a 
 
 availableSecrets:
     secretManager:
