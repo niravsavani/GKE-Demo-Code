@@ -1,19 +1,10 @@
 steps:
 
  - name: 'gcr.io/cloud-builders/docker'
-   entrypoint: 'bash'
-   args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
-   secretEnv: ['USERNAME', 'PASSWORD']
+   args: ['build','-t','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}','.']
 
  - name: 'gcr.io/cloud-builders/docker'
-   entrypoint: 'bash'
-   args: ['-c', 'docker build -t $$USERNAME/gke-demo-app:$SHORT_SHA .']
-   secretEnv: ['USERNAME']
-
- - name: 'gcr.io/cloud-builders/docker'
-   entrypoint: 'bash'
-   args: ['-c', 'docker push $$USERNAME/gke-demo-app:$SHORT_SHA']
-   secretEnv: ['USERNAME']
+   args: ['push','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
 
  - name: 'omegaes/kubci'
    args: ['$SHORT_SHA']
@@ -22,22 +13,16 @@ steps:
     - 'ENV_REPO_FILES=$_ENV_REPO_FILES'
     - 'ENV_REPO_MERGE_BRANCH=$_ENV_REPO_MERGE_BRANCH'
     - 'ENV_REPO_TARGET_BRANCH=$_ENV_REPO_TARGET_BRANCH'
-    - 'GIT_USER_EMAIL="abdul@babil.dev"'
-    - 'GIT_USER_NAME="Abdul CI/CD"'
     - 'REPO_NAME=$REPO_NAME'
     - 'BRANCH_NAME=$BRANCH_NAME'
 
-
 availableSecrets:
     secretManager:
-    - versionName: projects/468070723195/secrets/DOCKER_PASSWORD_SECRET_NAME/versions/1
-      env: 'PASSWORD'
-    - versionName: projects/468070723195/secrets/DOCKER_USERNAME_SECRET_NAME/versions/1
-      env: 'USERNAME'
-    - versionName: projects/468070723195/secrets/ENV_REPO_AUTH_URL/versions/1
+    - versionName: projects/150435548913/secrets/ENV_REPO_AUTH_URL/versions/1
       env: 'ENV_REPO_URL'
 
 options:
   machineType: 'N1_HIGHCPU_8'
+  logging: CLOUD_LOGGING_ONLY
 timeout: 720s
 tags: ['masterBuild', 'ApiV3Build']
