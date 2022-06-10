@@ -22,7 +22,6 @@ availableSecrets:
       env: 'ENV_REPO_URL'
 
 options:
-  machineType: 'N1_HIGHCPU_8'
   logging: CLOUD_LOGGING_ONLY
 timeout: 720s
 tags: ['masterBuild', 'ApiV3Build']
