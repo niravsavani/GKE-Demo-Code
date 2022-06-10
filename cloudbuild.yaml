@@ -2,11 +2,18 @@ steps:
 
  - name: 'gcr.io/cloud-builders/docker'
    entrypoint: 'bash'
-   args: ['build', 'gcr.io/${_PROJECT}:$SHORT_SHA','.']
+   args: ['-c', 'docker login --username=$$USERNAME --password=$$PASSWORD']
+   secretEnv: ['USERNAME', 'PASSWORD']
 
  - name: 'gcr.io/cloud-builders/docker'
    entrypoint: 'bash'
-   args: ['push','gcr.io/${_PROJECT}:$SHORT_SHA']
+   args: ['-c', 'docker build -t $$USERNAME/gke-demo-app:$SHORT_SHA .']
+   secretEnv: ['USERNAME']
+
+ - name: 'gcr.io/cloud-builders/docker'
+   entrypoint: 'bash'
+   args: ['-c', 'docker push $$USERNAME/gke-demo-app:$SHORT_SHA']
+   secretEnv: ['USERNAME']
 
  - name: 'omegaes/kubci'
    args: ['$SHORT_SHA']
@@ -25,6 +32,10 @@ substitutions:
 
 availableSecrets:
     secretManager:
+    - versionName: projects/150435548913/secrets/DOCKER_PASSWORD_SECRET_NAME/versions/1
+      env: 'PASSWORD'
+    - versionName: projects/150435548913/secrets/DOCKER_USERNAME_SECRET_NAME/versions/1
+      env: 'USERNAME'
     - versionName: projects/150435548913/secrets/ENV_REPO_AUTH_URL/versions/1
       env: 'ENV_REPO_URL'
 
