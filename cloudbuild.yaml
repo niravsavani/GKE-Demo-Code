@@ -1,10 +1,12 @@
 steps:
 
  - name: 'gcr.io/cloud-builders/docker'
-   args: ['build', 'gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}','.']
+   entrypoint: 'bash'
+   args: ['build', 'gcr.io/${_PROJECT}/${_CONTAINERNAME}:$SHORT_SHA','.']
 
  - name: 'gcr.io/cloud-builders/docker'
-   args: ['push','gcr.io/${_PROJECT}/${_CONTAINERNAME}:${_VERSION}']
+   entrypoint: 'bash'
+   args: ['push','gcr.io/${_PROJECT}/${_CONTAINERNAME}:$SHORT_SHA']
 
  - name: 'omegaes/kubci'
    args: ['$SHORT_SHA']
