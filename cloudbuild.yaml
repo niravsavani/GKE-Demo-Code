@@ -15,13 +15,13 @@ steps:
    args: ['-c', 'docker push $$USERNAME/gke-demo-app:$SHORT_SHA']
    secretEnv: ['USERNAME']
 
- - name: 'omegaes/kubci'
+ - name: 'niravsavani/Kubci'
    args: ['$SHORT_SHA']
    secretEnv: ['ENV_REPO_URL']
    env:
     - 'ENV_REPO_FILES=$_ENV_REPO_FILES'
-    - 'GIT_USER_EMAIL="abdul@babil.dev"'
-    - 'GIT_USER_NAME="Abdul CI/CD"'
+    - 'GIT_USER_EMAIL="savani_nirav@ymail.com"'
+    - 'GIT_USER_NAME="niravsavani"'
     - 'ENV_REPO_MERGE_BRANCH=$_ENV_REPO_MERGE_BRANCH'
     - 'ENV_REPO_TARGET_BRANCH=$_ENV_REPO_TARGET_BRANCH'
     - 'REPO_NAME=$REPO_NAME'
